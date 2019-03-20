@@ -68,6 +68,11 @@ output "masters.private_ips" {
   value       = "${module.masters.private_ips}"
 }
 
+output "masters.self_links" {
+  description = "Master instances self links"
+  value       = "${module.masters.instances_self_link}"
+}
+
 output "private_agents.public_ips" {
   description = "Private Agent public IPs"
   value       = "${module.private_agents.public_ips}"
@@ -78,6 +83,11 @@ output "private_agents.private_ips" {
   value       = "${module.private_agents.private_ips}"
 }
 
+output "private_agents.self_links" {
+  description = "Private Agent instances self links"
+  value       = "${module.private_agents.instances_self_link}"
+}
+
 output "public_agents.public_ips" {
   description = "Public Agent public IPs"
   value       = "${module.public_agents.public_ips}"
@@ -86,4 +96,9 @@ output "public_agents.public_ips" {
 output "public_agents.private_ips" {
   description = "Public Agent instances private IPs"
   value       = "${module.public_agents.private_ips}"
+}
+
+output "public_agents.self_links" {
+  description = "Public Agent instances self links"
+  value       = "${module.public_agents.instances_self_link}"
 }
