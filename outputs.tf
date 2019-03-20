@@ -102,3 +102,8 @@ output "public_agents.self_links" {
   description = "Public Agent instances self links"
   value       = "${module.public_agents.instances_self_link}"
 }
+
+output "network.self_link" {
+  description = "DCOS VPC network self link"
+  value       = "${module.network.self_link}"
+}
