@@ -35,6 +35,15 @@ provider "google" {}
 
 data "google_compute_zones" "available" {}
 
+locals {
+  ssh_public_key_file          = "${var.infra_public_ssh_key_path == "" ? "/dev/null" : var.infra_public_ssh_key_path}"
+  ssh_public_key_content       = "${var.infra_public_ssh_key_path == "" ? var.infra_public_ssh_key : file(local.ssh_public_key_file)}"
+  bootstrap_ssh_public_key     = "${var.bootstrap_public_ssh_key_path == "/dev/null" ? "" : file(var.bootstrap_public_ssh_key_path)}"
+  masters_ssh_public_key       = "${var.master_public_ssh_key_path == "/dev/null" ? "" : file(var.master_public_ssh_key_path)}"
+  private_agent_ssh_public_key = "${var.private_agent_public_ssh_key_path == "/dev/null" ? "" : file(var.private_agent_public_ssh_key_path)}"
+  public_agent_ssh_public_key  = "${var.public_agent_public_ssh_key_path == "/dev/null" ? "" : file(var.public_agent_public_ssh_key_path)}"
+}
+
 module "network" {
   source  = "dcos-terraform/network/gcp"
   version = "~> 0.1.0"
@@ -91,7 +100,7 @@ module "bootstrap" {
   disk_type                 = "${coalesce(var.bootstrap_disk_type, var.infra_disk_type)}"
   machine_type              = "${coalesce(var.bootstrap_machine_type, var.infra_machine_type)}"
   cluster_name              = "${var.cluster_name}"
-  public_ssh_key            = "${coalesce(var.bootstrap_public_ssh_key_path, var.infra_public_ssh_key_path)}"
+  public_ssh_key            = "${coalesce(local.bootstrap_ssh_public_key, local.ssh_public_key_content)}"
   ssh_user                  = "${coalesce(var.bootstrap_ssh_user, var.infra_ssh_user)}"
   bootstrap_subnetwork_name = "${module.network.agent_subnetwork_name}"
   image                     = "${var.bootstrap_image}"
@@ -117,7 +126,7 @@ module "masters" {
   disk_type              = "${coalesce(var.master_disk_type, var.infra_disk_type)}"
   machine_type           = "${coalesce(var.master_machine_type, var.infra_machine_type)}"
   cluster_name           = "${var.cluster_name}"
-  public_ssh_key         = "${coalesce(var.master_public_ssh_key_path, var.infra_public_ssh_key_path)}"
+  public_ssh_key         = "${coalesce(local.masters_ssh_public_key, local.ssh_public_key_content)}"
   ssh_user               = "${coalesce(var.master_ssh_user, var.infra_ssh_user)}"
   master_subnetwork_name = "${module.network.master_subnetwork_name}"
   image                  = "${var.master_image}"
@@ -143,7 +152,7 @@ module "private_agents" {
   disk_type                     = "${coalesce(var.private_agent_disk_type, var.infra_disk_type)}"
   machine_type                  = "${coalesce(var.private_agent_machine_type, var.infra_machine_type)}"
   cluster_name                  = "${var.cluster_name}"
-  public_ssh_key                = "${coalesce(var.private_agent_public_ssh_key_path, var.infra_public_ssh_key_path)}"
+  public_ssh_key                = "${coalesce(local.private_agent_ssh_public_key, local.ssh_public_key_content)}"
   ssh_user                      = "${coalesce(var.private_agent_ssh_user, var.infra_ssh_user)}"
   private_agent_subnetwork_name = "${module.network.agent_subnetwork_name}"
   image                         = "${var.private_agent_image}"
@@ -169,7 +178,7 @@ module "public_agents" {
   disk_type                    = "${coalesce(var.public_agent_disk_type, var.infra_disk_type)}"
   machine_type                 = "${coalesce(var.public_agent_machine_type, var.infra_machine_type)}"
   cluster_name                 = "${var.cluster_name}"
-  public_ssh_key               = "${coalesce(var.public_agent_public_ssh_key_path, var.infra_public_ssh_key_path)}"
+  public_ssh_key               = "${coalesce(local.public_agent_ssh_public_key, local.ssh_public_key_content)}"
   ssh_user                     = "${coalesce(var.public_agent_ssh_user, var.infra_ssh_user)}"
   public_agent_subnetwork_name = "${module.network.agent_subnetwork_name}"
   image                        = "${var.public_agent_image}"

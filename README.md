@@ -31,7 +31,7 @@ module "dcos-infrastructure" {
 | bootstrap_disk_type | Bootstrap node disk type. | string | `` | no |
 | bootstrap_image | [BOOTSTRAP] Image to be used | string | `` | no |
 | bootstrap_machine_type | [BOOTSTRAP] Machine type | string | `` | no |
-| bootstrap_public_ssh_key_path | Bootstrap Node Public SSH Key | string | `` | no |
+| bootstrap_public_ssh_key_path | Bootstrap Node Public SSH Key | string | `/dev/null` | no |
 | bootstrap_ssh_user | Bootstrap node SSH User | string | `` | no |
 | cluster_name | Name of the DC/OS cluster | string | - | yes |
 | dcos_version | Specifies which DC/OS version instruction to use. Options: 1.9.0, 1.8.8, etc. See dcos_download_path or dcos_version tree for a full list. | string | `1.11.4` | no |
@@ -39,7 +39,8 @@ module "dcos-infrastructure" {
 | infra_disk_size | Global Infra Disk Size | string | `128` | no |
 | infra_disk_type | Global Infra Disk Type | string | `pd-ssd` | no |
 | infra_machine_type | Global Infra Machine Type | string | `n1-standard-8` | no |
-| infra_public_ssh_key_path | Global Infra Public SSH Key | string | - | yes |
+| infra_public_ssh_key_path | Global Infra Public SSH Key path | string | - | yes |
+| infra_public_ssh_key | Global Infra Public SSH Key in authorized keys format (e.g. 'ssh-rsa ...') | string | - | no |
 | infra_ssh_user | Global Infra SSH User | string | `` | no |
 | labels | Add custom labels to all resources | map | `<map>` | no |
 | master_cidr_range | Master CIDR Range | string | `10.64.0.0/16` | no |
@@ -48,7 +49,7 @@ module "dcos-infrastructure" {
 | master_disk_type | Master node disk type. | string | `` | no |
 | master_image | Master node OS image | string | `` | no |
 | master_machine_type | Master node machine type | string | `` | no |
-| master_public_ssh_key_path | Master node Public SSH Key | string | `` | no |
+| master_public_ssh_key_path | Master node Public SSH Key | string | `/dev/null` | no |
 | master_ssh_user | Master node SSH User | string | `` | no |
 | num_masters | Specify the amount of masters. For redundancy you should have at least 3 | string | `3` | no |
 | num_private_agents | Specify the amount of private agents. These agents will provide your main resources | string | `1` | no |
@@ -58,14 +59,14 @@ module "dcos-infrastructure" {
 | private_agent_disk_type | Private agent node disk type. | string | `` | no |
 | private_agent_image | Private agent node OS image | string | `` | no |
 | private_agent_machine_type | Private agent node machine type | string | `` | no |
-| private_agent_public_ssh_key_path | Private Agent node Public SSH Key | string | `` | no |
+| private_agent_public_ssh_key_path | Private Agent node Public SSH Key | string | `/dev/null` | no |
 | private_agent_ssh_user | Private Agent node SSH User | string | `` | no |
 | public_agent_dcos_instance_os | Public Agent node tested OSes image | string | `` | no |
 | public_agent_disk_size | Public agent disk size (gb) | string | `` | no |
 | public_agent_disk_type | Public agent node disk type. | string | `` | no |
 | public_agent_image | Public agent node OS image | string | `` | no |
 | public_agent_machine_type | Public agent machine type | string | `` | no |
-| public_agent_public_ssh_key_path | Public Agent node Public SSH Key | string | `` | no |
+| public_agent_public_ssh_key_path | Public Agent node Public SSH Key | string | `/dev/null` | no |
 | public_agent_ssh_user | Public Agent node SSH User | string | `` | no |
 | public_agents_additional_ports | List of additional ports allowed for public access on public agents (80 and 443 open by default) | list | `<list>` | no |
 | tags | Add custom tags to all resources | list | `<list>` | no |

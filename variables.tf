@@ -94,22 +94,22 @@ variable "public_agent_image" {
 
 variable "master_public_ssh_key_path" {
   description = "Master node Public SSH Key"
-  default     = ""
+  default     = "/dev/null"
 }
 
 variable "private_agent_public_ssh_key_path" {
   description = "Private Agent node Public SSH Key"
-  default     = ""
+  default     = "/dev/null"
 }
 
 variable "public_agent_public_ssh_key_path" {
   description = "Public Agent node Public SSH Key"
-  default     = ""
+  default     = "/dev/null"
 }
 
 variable "bootstrap_public_ssh_key_path" {
   description = "Bootstrap Node Public SSH Key"
-  default     = ""
+  default     = "/dev/null"
 }
 
 variable "master_ssh_user" {
@@ -138,7 +138,12 @@ variable "infra_ssh_user" {
 }
 
 variable "infra_public_ssh_key_path" {
+  description = "Global Infra Public SSH Key file path"
+}
+
+variable "infra_public_ssh_key" {
   description = "Global Infra Public SSH Key"
+  default     = ""
 }
 
 variable "infra_disk_type" {
