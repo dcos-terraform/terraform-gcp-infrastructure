@@ -31,16 +31,18 @@ data "null_data_source" "lb_rules" {
   }
 }
 
-provider "google" {}
+provider "google-beta" {}
 
-data "google_compute_zones" "available" {}
+data "google_compute_zones" "available" {
+  provider = "google-beta"
+}
 
 module "network" {
   source  = "dcos-terraform/network/gcp"
   version = "~> 0.1.0"
 
   providers = {
-    google = "google"
+    google-beta = "google-beta"
   }
 
   master_cidr_range = "${var.master_cidr_range}"
@@ -53,7 +55,7 @@ module "compute-firewall" {
   version = "~> 0.1.0"
 
   providers = {
-    google = "google"
+    google-beta = "google-beta"
   }
 
   cluster_name                   = "${var.cluster_name}"
@@ -68,7 +70,7 @@ module "dcos-forwarding-rules" {
   version = "~> 0.1.0"
 
   providers = {
-    google = "google"
+    google-beta = "google-beta"
   }
 
   cluster_name                   = "${var.cluster_name}"
@@ -84,7 +86,7 @@ module "bootstrap" {
   version = "~> 0.1.0"
 
   providers = {
-    google = "google"
+    google-beta = "google-beta"
   }
 
   disk_size                 = "${coalesce(var.bootstrap_disk_size, var.infra_disk_size)}"
@@ -109,7 +111,7 @@ module "masters" {
   version = "~> 0.1.0"
 
   providers = {
-    google = "google"
+    google-beta = "google-beta"
   }
 
   num_masters            = "${var.num_masters}"
@@ -135,7 +137,7 @@ module "private_agents" {
   version = "~> 0.1.0"
 
   providers = {
-    google = "google"
+    google-beta = "google-beta"
   }
 
   num_private_agents            = "${var.num_private_agents}"
@@ -161,7 +163,7 @@ module "public_agents" {
   version = "~> 0.1.0"
 
   providers = {
-    google = "google"
+    google-beta = "google-beta"
   }
 
   num_public_agents            = "${var.num_public_agents}"
