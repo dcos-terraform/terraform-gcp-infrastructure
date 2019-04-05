@@ -85,14 +85,15 @@ module "dcos-infrastructure" {
 | masters.public_ips | Master instances public IPs |
 | masters.self_links | Master instances self links |
 | masters.ssh_user | Deployed masters agent SSH user |
+| network.self_link | DCOS VPC network self link |
 | private_agents.prereq_id | Returns the ID of the prereq script for private agents (if image are not used) |
 | private_agents.private_ips | Private Agent instances private IPs |
 | private_agents.public_ips | Private Agent public IPs |
-| private_agents.self_links | Private Agent self links |
+| private_agents.self_links | Private Agent instances self links |
 | private_agents.ssh_user | Deployed private agent SSH user |
 | public_agents.prereq_id | Returns the ID of the prereq script for public agents (if image are not used) |
 | public_agents.private_ips | Public Agent instances private IPs |
 | public_agents.public_ips | Public Agent public IPs |
-| public_agents.self_links | Public Agent self links |
+| public_agents.self_links | Public Agent instances self links |
 | public_agents.ssh_user | Deployed public agent SSH user |
 
