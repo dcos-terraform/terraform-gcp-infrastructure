@@ -10,7 +10,7 @@
  * ```hcl
  * module "dcos-infrastructure" {
  *   source  = "dcos-terraform/infrastructure/gcp"
- *   version = "~> 0.1.0"
+ *   version = "~> 0.2.0"
  *
  *   infra_public_ssh_key_path = "~/.ssh/id_rsa.pub"
  *
@@ -31,7 +31,9 @@ data "null_data_source" "lb_rules" {
   }
 }
 
-provider "google" {}
+provider "google" {
+  version = "~> 2.0"
+}
 
 data "google_compute_zones" "available" {}
 
@@ -65,7 +67,7 @@ module "compute-firewall" {
 
 module "dcos-forwarding-rules" {
   source  = "dcos-terraform/compute-forwarding-rule-dcos/gcp"
-  version = "~> 0.1.0"
+  version = "~> 0.2.0"
 
   providers = {
     google = "google"
@@ -81,7 +83,7 @@ module "dcos-forwarding-rules" {
 
 module "bootstrap" {
   source  = "dcos-terraform/bootstrap/gcp"
-  version = "~> 0.1.0"
+  version = "~> 0.2.0"
 
   providers = {
     google = "google"
@@ -106,7 +108,7 @@ module "bootstrap" {
 
 module "masters" {
   source  = "dcos-terraform/masters/gcp"
-  version = "~> 0.1.0"
+  version = "~> 0.2.0"
 
   providers = {
     google = "google"
@@ -132,7 +134,7 @@ module "masters" {
 
 module "private_agents" {
   source  = "dcos-terraform/private-agents/gcp"
-  version = "~> 0.1.0"
+  version = "~> 0.2.0"
 
   providers = {
     google = "google"
@@ -158,7 +160,7 @@ module "private_agents" {
 
 module "public_agents" {
   source  = "dcos-terraform/public-agents/gcp"
-  version = "~> 0.1.0"
+  version = "~> 0.2.0"
 
   providers = {
     google = "google"
