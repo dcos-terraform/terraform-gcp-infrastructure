@@ -95,4 +95,3 @@ module "dcos-infrastructure" {
 | public\_agents.public\_ips | Public Agent public IPs |
 | public\_agents.self\_links | Public Agent instances self links |
 | public\_agents.ssh\_user | Deployed public agent SSH user |
-
