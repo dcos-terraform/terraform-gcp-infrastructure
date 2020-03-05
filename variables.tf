@@ -244,3 +244,8 @@ variable "forwarding_rule_disable_public_agents" {
   description = "Do not create forwarding rules for public agents. ( Needs to be true when num_public_agents is 0 )"
   default     = false
 }
+
+variable "adminrouter_grpc_proxy_port" {
+    description = ""
+    default     = 12379
+}

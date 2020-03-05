@@ -69,6 +69,7 @@ module "compute-firewall" {
   admin_ips                      = ["${var.admin_ips}"]
   internal_subnets               = "${local.internal_subnets}"
   public_agents_additional_ports = ["${var.public_agents_additional_ports}"]
+  adminrouter_grpc_proxy_port    = "${var.adminrouter_grpc_proxy_port}"
 }
 
 module "dcos-forwarding-rules" {
@@ -85,6 +86,7 @@ module "dcos-forwarding-rules" {
   public_agents_additional_rules = ["${data.null_data_source.lb_rules.*.outputs}"]
   disable_masters                = "${var.forwarding_rule_disable_masters}"
   disable_public_agents          = "${var.forwarding_rule_disable_public_agents}"
+  adminrouter_grpc_proxy_port    = "${var.adminrouter_grpc_proxy_port}"
 
   labels = "${var.labels}"
 }
