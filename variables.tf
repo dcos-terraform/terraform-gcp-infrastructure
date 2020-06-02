@@ -183,7 +183,7 @@ variable "bootstrap_dcos_instance_os" {
 
 variable "admin_ips" {
   description = "List of CIDR admin IPs"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "num_bootstrap" {
@@ -208,19 +208,19 @@ variable "num_public_agents" {
 
 variable "tags" {
   description = "Add custom tags to all resources"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "labels" {
   description = "Add custom labels to all resources"
-  type        = "map"
+  type        = map(string)
   default     = {}
 }
 
 variable "public_agents_additional_ports" {
   description = "List of additional ports allowed for public access on public agents (80 and 443 open by default)"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -231,7 +231,7 @@ variable "name_prefix" {
 
 variable "accepted_internal_networks" {
   description = "Subnet ranges for all internal networks"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -244,3 +244,4 @@ variable "forwarding_rule_disable_public_agents" {
   description = "Do not create forwarding rules for public agents. ( Needs to be true when num_public_agents is 0 )"
   default     = false
 }
+
