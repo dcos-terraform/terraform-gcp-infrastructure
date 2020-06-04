@@ -72,9 +72,9 @@ module "compute-firewall" {
   cluster_name                   = var.cluster_name
   name_prefix                    = var.name_prefix
   network                        = module.network.self_link
-  admin_ips                      = [var.admin_ips]
+  admin_ips                      = var.admin_ips
   internal_subnets               = local.internal_subnets
-  public_agents_additional_ports = [var.public_agents_additional_ports]
+  public_agents_additional_ports = var.public_agents_additional_ports
 }
 
 module "dcos-forwarding-rules" {
@@ -86,9 +86,9 @@ module "dcos-forwarding-rules" {
   }
 
   cluster_name                   = var.cluster_name
-  masters_self_link              = [module.masters.instances_self_link]
-  public_agents_self_link        = [module.public_agents.instances_self_link]
-  public_agents_additional_rules = [data.null_data_source.lb_rules.*.outputs]
+  masters_self_link              = module.masters.instances_self_link
+  public_agents_self_link        = module.public_agents.instances_self_link
+  public_agents_additional_rules = data.null_data_source.lb_rules.*.outputs
   disable_masters                = var.forwarding_rule_disable_masters
   disable_public_agents          = var.forwarding_rule_disable_public_agents
 
