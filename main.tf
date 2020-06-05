@@ -113,10 +113,10 @@ module "bootstrap" {
     var.bootstrap_public_ssh_key_path,
     var.infra_public_ssh_key_path,
   )
-  ssh_user                  = coalesce(var.bootstrap_ssh_user, var.infra_ssh_user, null)
+  ssh_user                  = try(coalesce(var.bootstrap_ssh_user, var.infra_ssh_user), null)
   bootstrap_subnetwork_name = module.network.agent_subnetwork_name
   image                     = var.bootstrap_image
-  dcos_instance_os          = coalesce(var.bootstrap_dcos_instance_os, var.infra_dcos_instance_os, null)
+  dcos_instance_os          = coalesce(var.bootstrap_dcos_instance_os, var.infra_dcos_instance_os)
 
   # Determine if we need to force a particular region
   zone_list = data.google_compute_zones.available.names
@@ -141,7 +141,7 @@ module "masters" {
     var.master_public_ssh_key_path,
     var.infra_public_ssh_key_path,
   )
-  ssh_user               = coalesce(var.master_ssh_user, var.infra_ssh_user, null)
+  ssh_user               = try(coalesce(var.master_ssh_user, var.infra_ssh_user), null)
   master_subnetwork_name = module.network.master_subnetwork_name
   image                  = var.master_image
   dcos_instance_os       = coalesce(var.master_dcos_instance_os, var.infra_dcos_instance_os)
@@ -170,7 +170,7 @@ module "private_agents" {
     var.private_agent_public_ssh_key_path,
     var.infra_public_ssh_key_path,
   )
-  ssh_user                      = coalesce(var.private_agent_ssh_user, var.infra_ssh_user, null)
+  ssh_user                      = try(coalesce(var.private_agent_ssh_user, var.infra_ssh_user), null)
   private_agent_subnetwork_name = module.network.agent_subnetwork_name
   image                         = var.private_agent_image
   dcos_instance_os = coalesce(
@@ -202,7 +202,7 @@ module "public_agents" {
     var.public_agent_public_ssh_key_path,
     var.infra_public_ssh_key_path,
   )
-  ssh_user                     = coalesce(var.public_agent_ssh_user, var.infra_ssh_user, null)
+  ssh_user                     = try(coalesce(var.public_agent_ssh_user, var.infra_ssh_user), null)
   public_agent_subnetwork_name = module.network.agent_subnetwork_name
   image                        = var.public_agent_image
   dcos_instance_os = coalesce(
