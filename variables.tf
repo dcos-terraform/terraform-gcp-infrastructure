@@ -158,7 +158,7 @@ variable "infra_machine_type" {
 
 variable "infra_dcos_instance_os" {
   description = "Global Infra Tested OSes Image"
-  default     = "coreos_1576.5.0"
+  default     = "centos_7"
 }
 
 variable "master_dcos_instance_os" {
@@ -244,4 +244,3 @@ variable "forwarding_rule_disable_public_agents" {
   description = "Do not create forwarding rules for public agents. ( Needs to be true when num_public_agents is 0 )"
   default     = false
 }
-
